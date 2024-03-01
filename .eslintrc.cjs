@@ -8,4 +8,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
+  rules: {
+    '@typescript-eslint/no-explicit-any': 'off'
+  }
 }
