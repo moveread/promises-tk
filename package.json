@@ -1,6 +1,6 @@
 {
     "name": "promises-tk",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Toolkit for working with Promises ",
     "main": "dist/index.js",
     "scripts": {
@@ -13,10 +13,10 @@
     "author": "Marcel Claramunt",
     "license": "ISC",
     "devDependencies": {
-        "typescript": "^5.3.2",
         "@typescript-eslint/eslint-plugin": "^6.21.0",
         "@typescript-eslint/parser": "^6.21.0",
         "eslint": "^8.56.0",
-        "eslint-plugin-react-hooks": "^4.6.0"
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "typescript": "^5.3.2"
     }
 }
