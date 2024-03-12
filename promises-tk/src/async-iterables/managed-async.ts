@@ -1,4 +1,4 @@
-import { managedPromise } from "./managed-promise"
+import { managedPromise } from "../promises/managed-promise.js"
 
 export type ManagedAsyncIterable<T> = AsyncIterableIterator<T> & {
   push(value: T): void
@@ -26,9 +26,11 @@ export type ManagedAsyncIterable<T> = AsyncIterableIterator<T> & {
  * ```
  */
 export function managedAsync<T>(): ManagedAsyncIterable<T> {
-  let xs: T[] = []
+  const xs: T[] = []
   let ended = false
-  let nextPromise = managedPromise<void>()
+  const nextPromise = {
+    current: managedPromise<void>()
+  }
 
   async function next(): Promise<IteratorResult<T>> {
     if (xs.length > 0) {
@@ -39,22 +41,22 @@ export function managedAsync<T>(): ManagedAsyncIterable<T> {
       return { value: undefined, done: true }
     }
     else {
-      await nextPromise
-      nextPromise = managedPromise()
+      await nextPromise.current
+      nextPromise.current = managedPromise()
       return next()
     }
   }
 
   function push(value: T) {
     xs.push(value)
-    if (nextPromise.status === 'pending')
-      nextPromise.resolve()
+    if (nextPromise.current.status === 'pending')
+      nextPromise.current.resolve()
   }
 
   function end() {
     ended = true
-    if (nextPromise.status === 'pending')
-      nextPromise.resolve()
+    if (nextPromise.current.status === 'pending')
+      nextPromise.current.resolve()
   }
 
   return {

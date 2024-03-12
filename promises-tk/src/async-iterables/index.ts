@@ -1,0 +1,1 @@
+export { managedAsync, type ManagedAsyncIterable } from './managed-async.js'
