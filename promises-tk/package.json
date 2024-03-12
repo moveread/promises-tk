@@ -1,6 +1,6 @@
 {
     "name": "promises-tk",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Toolkit for working with Promises ",
     "type": "module",
     "sideEffects": false,
