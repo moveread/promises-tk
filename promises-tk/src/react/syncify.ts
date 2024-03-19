@@ -11,7 +11,7 @@ export function useTracked<T>(promise: TrackedPromise<T>): PromiseState<T> {
       reason => !canceled && setState({ status: 'rejected', reason })
     )
     return () => { canceled = true }
-  }, [promise])
+  }, [])
   return state
 }
 
@@ -29,6 +29,6 @@ export function useSyncify<T>(promise: Promise<T>): PromiseState<T> {
       reason => !canceled && setState({ status: 'rejected', reason })
     )
     return () => { canceled = true }
-  }, [promise])
+  }, [])
   return state
 }

@@ -1,8 +1,12 @@
+import { TrackedPromise } from "./index.js"
+
 /** Lazily evaluated promise */
-export function thunkPromise<T>(get: () => Promise<T>): () => Promise<T> {
+export function thunk<T>(get: () => TrackedPromise<T>): () => TrackedPromise<T>
+export function thunk<T>(get: () => Promise<T>): () => Promise<T>
+export function thunk<T>(get: () => Promise<T>): () => Promise<T> {
   let value: T | undefined
   return async () => {
-    if (!value)
+    if (value === undefined)
       value = await get()
     return value
   }
